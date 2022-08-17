@@ -420,10 +420,9 @@ class _MotionToastState extends State<MotionToast>
   late Timer toastTimer;
 
   void _popCurrentToast() {
+    debugPrint('toast finished');
     if (mounted) {
-      Navigator.of(context).popUntil(
-        (route) => route.isCurrent,
-      );
+      Navigator.of(context).pop();
       widget.onClose?.call();
     }
   }

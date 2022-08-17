@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:motion_toast/widgets/seperator.dart';
 
 import 'motion_toast_icon.dart';
 
@@ -102,7 +101,6 @@ class MotionToastContent extends StatelessWidget {
             ),
           ),
         ),
-        const Seperator.double(7),
       ],
     );
   }
