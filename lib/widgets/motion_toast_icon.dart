@@ -4,20 +4,20 @@ import 'heart_beat_icon.dart';
 
 class MotionToastIcon extends StatelessWidget {
   /// Size of the icon.
-  final double iconSize;
+  final double? iconSize;
 
   /// Set to `true` to show animation of the toast.
   final bool withAnimation;
 
   /// Icon to display on the toast.
-  final IconData icon;
+  final Widget icon;
 
   /// The color of the toast icon.
   final Color color;
 
   const MotionToastIcon({
     Key? key,
-    required this.iconSize,
+    this.iconSize,
     required this.color,
     required this.icon,
     required this.withAnimation,
@@ -25,19 +25,19 @@ class MotionToastIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: iconSize,
-      child: withAnimation
-          ? HeartBeatIcon(
-              icon: icon,
-              color: color,
-              size: iconSize,
-            )
-          : Icon(
-              icon,
-              color: color,
-              size: iconSize,
+    return icon is SizedBox
+        ? const SizedBox(width: 16)
+        : Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              width: iconSize,
+              child: withAnimation
+                  ? HeartBeatIcon(
+                      icon: icon,
+                      size: iconSize ?? 40,
+                    )
+                  : icon,
             ),
-    );
+          );
   }
 }

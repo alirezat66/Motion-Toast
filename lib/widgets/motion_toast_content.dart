@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:motion_toast/widgets/seperator.dart';
 
 import 'motion_toast_icon.dart';
-import 'motion_toast_side_bar.dart';
 
 /// Flow of the contents in the motion toast.
 enum ContentLayoutType { normal, reversed }
@@ -13,7 +12,7 @@ class MotionToastContent extends StatelessWidget {
     required this.color,
     required this.description,
     required this.icon,
-    required this.iconSize,
+    this.iconSize,
     required this.radius,
     required this.title,
     required this.withAnimation,
@@ -32,10 +31,10 @@ class MotionToastContent extends StatelessWidget {
   final double radius;
 
   /// Size of the toast icon.
-  final double iconSize;
+  final double? iconSize;
 
   /// Icon to display on the toast.
-  final IconData icon;
+  final Widget icon;
 
   /// Set to `true` to show animation of the toast.
   final bool withAnimation;
@@ -53,10 +52,8 @@ class MotionToastContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Seperator.double(10),
           Flexible(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -67,18 +64,14 @@ class MotionToastContent extends StatelessWidget {
               ),
             ),
           ),
-          const Seperator.double(15),
-          MotionToastIcon(
-            iconSize: iconSize,
-            color: color,
-            icon: icon,
-            withAnimation: withAnimation,
-          ),
-          const Seperator.double(15),
-          MotionToastSideBar(
-            color: color,
-            radius: radius,
-          ),
+          icon is SizedBox
+              ? icon
+              : MotionToastIcon(
+                  iconSize: iconSize,
+                  color: color,
+                  icon: icon,
+                  withAnimation: withAnimation,
+                ),
         ],
       );
     }
@@ -86,18 +79,12 @@ class MotionToastContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        MotionToastSideBar(
-          color: color,
-          radius: radius,
-        ),
-        const Seperator.double(15),
         MotionToastIcon(
           iconSize: iconSize,
           color: color,
           icon: icon,
           withAnimation: withAnimation,
         ),
-        const Seperator.double(15),
         Flexible(
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(

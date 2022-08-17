@@ -266,6 +266,7 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.bold,
         ),
       ),
+      
       position: MotionToastPosition.center,
       description: const Text('Example of Info Toast'),
     ).show(context);
@@ -287,7 +288,12 @@ class _HomePageState extends State<HomePage> {
 
   void _displayResponsiveMotionToast() {
     MotionToast(
-      icon: Icons.rocket_launch,
+      icon: Container(
+        width: 50,
+        height: 50,
+        color: Colors.amber,
+      ),
+      iconSize: 50,
       primaryColor: Colors.purple,
       title: const Text(
         'Custom Toast',
@@ -303,7 +309,12 @@ class _HomePageState extends State<HomePage> {
 
   void _displayCustomMotionToast() {
     MotionToast(
-      icon: Icons.alarm,
+      icon: Container(
+        width: 50,
+        height: 50,
+        color: Colors.amber,
+      ),
+      iconSize: 40,
       primaryColor: Colors.pink,
       title: const Text(
         'Custom Toast',
@@ -321,7 +332,12 @@ class _HomePageState extends State<HomePage> {
 
   void _displayCenterMotionToast() {
     MotionToast(
-      icon: Icons.alarm,
+      icon: Container(
+        width: 50,
+        height: 50,
+        color: Colors.amber,
+      ),
+      iconSize: 50,
       primaryColor: Colors.deepOrange,
       title: const Text(
         'Center Toast',
@@ -341,7 +357,12 @@ class _HomePageState extends State<HomePage> {
 
   void _displayTopMotionToast() {
     MotionToast(
-      icon: Icons.zoom_out,
+      icon: Container(
+        width: 50,
+        height: 50,
+        color: Colors.amber,
+      ),
+      iconSize: 50,
       primaryColor: Colors.deepOrange,
       title: const Text('Top Motion Toast'),
       description: const Text('Another motion toast example'),
@@ -354,9 +375,9 @@ class _HomePageState extends State<HomePage> {
 
   void _displayTwoColorsMotionToast() {
     MotionToast(
-      icon: Icons.zoom_out,
+      icon: const Icon(Icons.zoom_out),
+      iconSize: 40,
       primaryColor: Colors.orange[500]!,
-      secondaryColor: Colors.grey,
       backgroundType: BackgroundType.solid,
       title: const Text(
         'Two Color Motion Toast',
@@ -374,10 +395,10 @@ class _HomePageState extends State<HomePage> {
 
   void _displayTransparentMotionToast() {
     MotionToast(
-      icon: Icons.zoom_out,
+      icon: const Icon(Icons.zoom_out),
+      iconSize: 40,
       primaryColor: Colors.grey[400]!,
-      secondaryColor: Colors.yellow,
-      backgroundType: BackgroundType.transparent,
+     backgroundType: BackgroundType.transparent,
       title: const Text(
         'Two Color Motion Toast',
         style: TextStyle(

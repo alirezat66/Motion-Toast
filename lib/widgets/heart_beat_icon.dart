@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 /// Render a heartbeat animated icon
 class HeartBeatIcon extends StatefulWidget {
   /// The icon that will be animated
-  final IconData icon;
+  final Widget icon;
 
   /// The icon color
-  final Color color;
 
   /// The default icon size
   final double size;
@@ -15,7 +14,6 @@ class HeartBeatIcon extends StatefulWidget {
   const HeartBeatIcon({
     Key? key,
     required this.icon,
-    required this.color,
     required this.size,
   }) : super(key: key);
 
@@ -58,10 +56,10 @@ class _HeartBeatIconState extends State<HeartBeatIcon>
     return AnimatedBuilder(
       animation: _heartAnimationController,
       builder: (context, child) {
-        return Icon(
-          widget.icon,
-          color: widget.color,
-          size: _heartAnimation.value,
+        return SizedBox(
+          width: _heartAnimation.value,
+          height: _heartAnimation.value,
+          child: widget.icon,
         );
       },
     );

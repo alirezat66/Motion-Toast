@@ -21,8 +21,8 @@ class MotionToast extends StatefulWidget {
     this.title,
     this.width,
     this.height,
+    this.iconSize,
     this.constraints,
-    this.iconSize = 40,
     this.enableAnimation = true,
     this.layoutOrientation = ToastOrientation.ltr,
     this.animationType = AnimationType.fromBottom,
@@ -37,13 +37,11 @@ class MotionToast extends StatefulWidget {
     this.borderRadius = 20,
     this.onClose,
     this.dismissable = true,
-    this.secondaryColor,
     this.backgroundType = BackgroundType.lighter,
     this.barrierColor = Colors.transparent,
   }) : super(key: key) {
     _assertValidValues();
     motionToastType = MotionToastType.custom;
-    iconType = IconType.materialDesign;
   }
 
   /// Render a success motion toast
@@ -56,12 +54,12 @@ class MotionToast extends StatefulWidget {
   MotionToast.success({
     Key? key,
     required this.description,
+    this.icon = const SizedBox(),
     this.title,
-    this.iconType = IconType.materialDesign,
+    this.iconSize,
     this.width,
     this.height,
     this.constraints,
-    this.iconSize = 40,
     this.enableAnimation = true,
     this.layoutOrientation = ToastOrientation.ltr,
     this.animationType = AnimationType.fromBottom,
@@ -93,12 +91,12 @@ class MotionToast extends StatefulWidget {
   MotionToast.warning({
     Key? key,
     required this.description,
+    this.icon = const SizedBox(),
+    this.iconSize,
     this.title,
-    this.iconType = IconType.materialDesign,
     this.width = 350,
     this.height = 80,
     this.constraints,
-    this.iconSize = 40,
     this.enableAnimation = true,
     this.layoutOrientation = ToastOrientation.ltr,
     this.animationType = AnimationType.fromBottom,
@@ -130,8 +128,8 @@ class MotionToast extends StatefulWidget {
   MotionToast.error({
     Key? key,
     required this.description,
+    this.icon = const SizedBox(),
     this.title,
-    this.iconType = IconType.materialDesign,
     this.width = 350,
     this.height = 80,
     this.constraints,
@@ -168,11 +166,11 @@ class MotionToast extends StatefulWidget {
     Key? key,
     required this.description,
     this.title,
-    this.iconType = IconType.materialDesign,
+    this.icon = const SizedBox(),
     this.width = 350,
     this.height = 80,
-    this.constraints,
     this.iconSize = 40,
+    this.constraints,
     this.enableAnimation = true,
     this.layoutOrientation = ToastOrientation.ltr,
     this.animationType = AnimationType.fromBottom,
@@ -205,7 +203,7 @@ class MotionToast extends StatefulWidget {
     Key? key,
     required this.description,
     this.title,
-    this.iconType = IconType.materialDesign,
+    this.icon = const SizedBox(),
     this.width = 350,
     this.height = 80,
     this.constraints,
@@ -233,14 +231,8 @@ class MotionToast extends StatefulWidget {
 
   /// initialize [icon] and [primaryColor] based on the selected [motionToastType]
   void _initializeParameters() {
-    if (iconType == IconType.cupertino) {
-      icon = motionToastIconsCupertino[motionToastType]!;
-    } else {
-      icon = motionToastIconsMD[motionToastType]!;
-    }
     primaryColor = motionToastColors[motionToastType]!;
-    secondaryColor = motionToastColors[motionToastType]!;
-    backgroundType = BackgroundType.lighter;
+    backgroundType = BackgroundType.solid;
   }
 
   /// assert valid values when creating a motion toast widget
@@ -284,7 +276,8 @@ class MotionToast extends StatefulWidget {
   /// the icon will get the default type icon
   ///
   /// if [motionToastType] set to [MotionToastType.custom] the icon parameter is required
-  late final IconData icon;
+  late final Widget icon;
+  late final double? iconSize;
 
   /// The motion toast background color
   /// if `motionToastType == MOTION_TOAST_TYPE.CUSTOM` color parameter is required
@@ -295,7 +288,6 @@ class MotionToast extends StatefulWidget {
   /// Color applied on the motion toast side widget (sidebar) and the icon
   /// if it's null secondary color will be the primary color
   /// can be customized when using the default constructor
-  late final Color? secondaryColor;
 
   /// the type  of the background that will be applied on the motion toast content
   /// available values:
@@ -313,7 +305,6 @@ class MotionToast extends StatefulWidget {
   /// CUPERTINO
   /// }
   /// ```
-  late final IconType? iconType;
 
   /// The motion toast width by default it's set to 250
   final double? width;
@@ -329,7 +320,6 @@ class MotionToast extends StatefulWidget {
 
   /// the motion toast icon size
   /// by default it's 40
-  final double iconSize;
 
   /// disable or enable the heartbeat animation on the icon
   /// by default the animation is enabled
@@ -613,7 +603,7 @@ class _MotionToastState extends State<MotionToast>
       borderRadius: widget.borderRadius,
       backgroundType: widget.backgroundType,
       child: MotionToastContent(
-        color: widget.secondaryColor ?? widget.primaryColor,
+        color: widget.primaryColor,
         description: widget.description,
         icon: widget.icon,
         iconSize: widget.iconSize,
